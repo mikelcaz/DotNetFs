@@ -1,0 +1,9 @@
+# C Sharp & .NET Core
+[Oo]bj
+[Bb]in
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
