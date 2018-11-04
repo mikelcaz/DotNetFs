@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace libdotnetfs
+namespace LibDotNetFs
 {
     public class Class1
     {
