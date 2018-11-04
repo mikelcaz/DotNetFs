@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace libdotnetfsTests
+namespace DotNetFsTests
 {
     public class UnitTest1
     {
