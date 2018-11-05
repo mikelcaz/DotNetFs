@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+using OldDirectory = System.IO.Directory;
+
 namespace DotNetFs.Io
 {
     public static class Directory
@@ -10,9 +12,19 @@ namespace DotNetFs.Io
             return System.IO.Directory.Exists(path);
         }
 
-        public static DirectoryInfo GetDirectory()
+        public static DirectoryInfo GetDirectory(string path)
         {
-            throw new NotImplementedException("Get Directory not implemented yet");
+            var directoryInfo = new DirectoryInfo(path);
+            if (directoryInfo.Exists)
+                return directoryInfo;
+
+            var fileInfo = new FileInfo(path);
+            if (!File.Exists(path))
+                throw new ArgumentException(
+                    "File or directory not found",
+                    paramName: path);
+
+            return fileInfo.Directory;
         }
     }
 }
