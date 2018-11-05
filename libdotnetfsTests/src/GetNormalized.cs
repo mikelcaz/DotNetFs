@@ -19,10 +19,33 @@ namespace DotNetFsTests
             "directory",
             "./directory/.", "./directory/otherDirectory/..",
             "./directory/./", "./directory/otherDirectory/../",
-            "directory/otherDirectory/..", "./directory/otherDirectory/..", "directory/./otherDirectory/..")]
+            "directory/otherDirectory/..",
+            "./directory/otherDirectory/..",
+            "directory/./otherDirectory/..")]
         public void NormalizationTest(params string[] paths)
         {
             NormalizationTestHelper(onlyForWindows: false, paths: paths);
+        }
+
+        // This test is wrong (it cannot guess the current volume from the path)!
+        [Theory]
+        [InlineData(@"C:\", @"Z:\", @"\")]
+        [InlineData(@"C:\", @"\", @"\.", @"\.\", @"\..", @"\..\", @"\directory\..")]
+        [InlineData(@"C:\", "C:/", "/", "/.", "/./", "/..", "/../", "/directory/..")]
+        [InlineData(
+            @"\directory",
+            @"\directory\.", @"\directory\otherDirectory\..",
+            @"\directory\.\", @"\directory\otherDirectory\..\")]
+        [InlineData(
+            @"directory",
+            @".\directory\.", @".\directory\otherDirectory\..",
+            @".\directory\.\", @".\directory\otherDirectory\..\",
+            @"directory\otherDirectory\..",
+            @".\directory\otherDirectory\..",
+            @"directory\.\otherDirectory\..")]
+        public void NormalizationAdditionalTestOnWindows(params string[] paths)
+        {
+            NormalizationTestHelper(onlyForWindows: true, paths: paths);
         }
 
         internal void NormalizationTestHelper(
