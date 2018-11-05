@@ -82,7 +82,7 @@ namespace DotNetFsTests
             BelongsOnWindows(path);
         }
 
-        public void BelongsOnWindows(string path)
+        internal void BelongsOnWindows(string path)
         {
             var isNotWindows =
                 Environment.OSVersion.Platform != PlatformID.Win32NT;
