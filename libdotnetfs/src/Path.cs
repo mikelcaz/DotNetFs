@@ -20,7 +20,6 @@ namespace DotNetFs
             var fileName = System.IO.Path.GetFileName(path);
 
             // It has to be a directory path.
-            // TODO: Implement MustBelongToADirectory method.
             if (
                 fileName == string.Empty
                 || fileName == "."
@@ -49,7 +48,14 @@ namespace DotNetFs
 
         public static bool MustBelongToADirectory(string path)
         {
-            throw new NotImplementedException("MustBelongToADirectory not implemented");
+            return path == "."
+                || path == ".."
+                || path.EndsWith($"{System.IO.Path.DirectorySeparatorChar}")
+                || path.EndsWith($"{System.IO.Path.DirectorySeparatorChar}.")
+                || path.EndsWith($"{System.IO.Path.DirectorySeparatorChar}..")
+                || path.EndsWith($"{System.IO.Path.AltDirectorySeparatorChar}")
+                || path.EndsWith($"{System.IO.Path.AltDirectorySeparatorChar}.")
+                || path.EndsWith($"{System.IO.Path.AltDirectorySeparatorChar}..");
         }
 
         public static string GetFileName(string path)
