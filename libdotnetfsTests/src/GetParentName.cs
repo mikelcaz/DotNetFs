@@ -28,7 +28,7 @@ namespace DotNetFsTests
         [InlineData("/parent/directory/../..", "/parent/directory/..")]
         // [InlineData("/parent", "/parent/directory/../")]
         [InlineData("/parent/directory/../..", "/parent/directory/../")]
-        public void UnixAbsolutePathTest(string expected, string path)
+        public void AbsolutePathTest(string expected, string path)
         {
             PathTest(expected, path, forWindows: false);
         }
@@ -49,7 +49,7 @@ namespace DotNetFsTests
         [InlineData("./fileOrDirectory/../..", "./fileOrDirectory/..")]
         // [InlineData("./fileOrDirectory", "./fileOrDirectory/../")]
         [InlineData("./fileOrDirectory/../..", "./fileOrDirectory/../")]
-        public void UnixRelativePathTest(string expected, string path)
+        public void RelativePathTest(string expected, string path)
         {
             PathTest(expected, path, forWindows: false);
         }
