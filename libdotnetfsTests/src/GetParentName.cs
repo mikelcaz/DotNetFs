@@ -135,7 +135,7 @@ namespace DotNetFsTests
             if (isWindows != forWindows)
                 return;
 
-            var parent = Fs.GetParentName(path);
+            var parent = Path.GetParentName(path);
             Assert.Equal(expected, parent);
         }
     }
