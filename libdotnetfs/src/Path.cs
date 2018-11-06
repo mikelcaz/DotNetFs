@@ -43,11 +43,57 @@ namespace DotNetFs
             return candidate;
         }
 
-        public static string GetNormalized(string path)
+        internal static string TrimEndDirectorySeparators(this string path)
         {
-            return OldPath.GetFullPath(path).TrimEnd(
+            return path.TrimEnd(
                 OldPath.DirectorySeparatorChar,
                 OldPath.AltDirectorySeparatorChar);
+        }
+
+        public static string GetNormalized(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException(
+                    "Paths cannot be null nor white space",
+                    paramName: "path");
+
+            var fullPath = OldPath.GetFullPath(path);
+
+            if (
+                fullPath.StartsWith(OldPath.DirectorySeparatorChar.ToString())
+                || fullPath.StartsWith(OldPath.AltDirectorySeparatorChar.ToString())
+            )
+            {
+                var remainder = fullPath.Substring(1).TrimEndDirectorySeparators();
+                if (remainder == string.Empty)
+                    return OldPath.GetPathRoot(fullPath);
+            }
+            else if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                // Special kinds of paths not supported!
+
+                // A GetFullPath overlook? Intended?
+                if(System.Text.RegularExpressions.Regex.Matches(fullPath, ":").Count > 1)
+                    throw new ArgumentException(
+                        "Paths cannot cointain the ':' caracter (but in the drive prefix)",
+                        paramName: "path");
+
+                System.Diagnostics.Trace.Assert(
+                    fullPath.Length >= 2
+                    && fullPath[1] == ':');
+                
+                var prefix = fullPath.Substring(0, 2).ToUpper();
+                var remainder = fullPath.Substring(2).TrimEndDirectorySeparators();
+
+                if (remainder == string.Empty)
+                    return prefix + OldPath.DirectorySeparatorChar;
+
+                fullPath = prefix + remainder;
+            }
+
+            var normalized = fullPath.TrimEndDirectorySeparators();
+            System.Diagnostics.Trace.Assert(normalized != string.Empty);
+            return normalized;
         }
 
         public static bool MustBelongToADirectory(string path)
