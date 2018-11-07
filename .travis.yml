@@ -10,4 +10,4 @@ matrix:
     - os: windows
 
 script:
-  - dotnet test libdotnetfsTests/libdotnetfsTests.csproj
+  - dotnet test LibDotNetFsTests/LibDotNetFsTests.csproj
