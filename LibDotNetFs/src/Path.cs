@@ -35,7 +35,7 @@ namespace DotNetFs
             // It has no parent info.
             if (candidate == string.Empty)
             {
-                return "..";
+                return ".";
             }
 
             // It could be a file or directory path,
@@ -81,7 +81,7 @@ namespace DotNetFs
                 System.Diagnostics.Trace.Assert(
                     fullPath.Length >= 2
                     && fullPath[1] == ':');
-                
+
                 var prefix = fullPath.Substring(0, 2).ToUpper();
                 var remainder = fullPath.Substring(2).TrimEndDirectorySeparators();
 
