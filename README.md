@@ -1,5 +1,8 @@
 # DotNetFs
 
+![Develop status badge](https://travis-ci.org/mikelcaz/DotNetFs.svg?branch=develop) Develop\
+![Master status badge](https://travis-ci.org/mikelcaz/DotNetFs.svg?branch=master) Master
+
 ### Disclaimer
 
 This project is a WIP. Use with caution.
