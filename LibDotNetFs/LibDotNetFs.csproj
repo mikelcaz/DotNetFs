@@ -6,6 +6,7 @@
     <Version>1.0.1</Version>
     <Authors>mikelcaz</Authors>
     <Copyright>Copyright © 2018 Mikel Cazorla Pérez</Copyright>
+    <PackageLicenseUrl>https://github.com/mikelcaz/DotNetFs/blob/v1.0.2/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
 
 </Project>
