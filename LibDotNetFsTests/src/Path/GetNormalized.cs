@@ -50,6 +50,7 @@ namespace DotNetFsTests
             @"\directory\.\", @"\directory\otherDirectory\..\")]
         [InlineData(
             @"directory",
+            // Only trailing duplicated slashes are removed.
             @"directory\\\",
             @".\directory\.", @".\directory\otherDirectory\..",
             @".\directory\.\", @".\directory\otherDirectory\..\",
