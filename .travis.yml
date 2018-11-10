@@ -1,0 +1,13 @@
+language: csharp
+mono: none
+
+matrix:
+  include:
+    - os: linux
+      dotnet: 2.1.300
+    - os: osx
+      dotnet: 2.1.300
+    - os: windows
+
+script:
+  - dotnet test LibDotNetFsTests/LibDotNetFsTests.csproj
