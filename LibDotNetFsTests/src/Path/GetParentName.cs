@@ -49,6 +49,7 @@ namespace DotNetFsTests
         [InlineData("./fileOrDirectory/../..", "./fileOrDirectory/..")]
         // [InlineData("./fileOrDirectory", "./fileOrDirectory/../")]
         [InlineData("./fileOrDirectory/../..", "./fileOrDirectory/../")]
+        [InlineData(".", "fileOrDirectory")]
         public void RelativePathTest(string expected, string path)
         {
             ParentNamePathTest(expected, path, forWindows: false);
@@ -94,6 +95,7 @@ namespace DotNetFsTests
         [InlineData(@".\fileOrDirectory\..\..", @".\fileOrDirectory\..")]
         // [InlineData(@".\fileOrDirectory", @".\fileOrDirectory\..\")]
         [InlineData(@".\fileOrDirectory\..\..", @".\fileOrDirectory\..\")]
+        [InlineData(".", "fileOrDirectory")]
         public void WindowsRelativePathTest(string expected, string path)
         {
             ParentNamePathTest(expected, path, forWindows: true);
