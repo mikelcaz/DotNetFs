@@ -1,3 +1,5 @@
+// Copyright © 2018 Mikel Cazorla Pérez.
+
 using Xunit;
 using DotNetFs;
 using DotNetFs.Io;
