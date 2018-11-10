@@ -73,14 +73,18 @@ namespace DotNetFs
                 // Special kinds of paths not supported!
 
                 // A GetFullPath overlook? Intended?
-                if(System.Text.RegularExpressions.Regex.Matches(fullPath, ":").Count > 1)
+                if (System.Text.RegularExpressions.Regex.Matches(fullPath, ":").Count > 1)
                     throw new ArgumentException(
                         "Paths cannot cointain the ':' caracter (but in the drive prefix)",
                         paramName: "path");
 
-                System.Diagnostics.Trace.Assert(
-                    fullPath.Length >= 2
-                    && fullPath[1] == ':');
+                if (
+                    fullPath.Length < 2
+                    || fullPath[1] != ':'
+                )
+                {
+                    throw new InvalidOperationException($"[Assert] Normalized Windows path has no prefix: '{fullPath}'");
+                }
 
                 var prefix = fullPath.Substring(0, 2).ToUpper();
                 var remainder = fullPath.Substring(2).TrimEndDirectorySeparators();
@@ -92,7 +96,8 @@ namespace DotNetFs
             }
 
             var normalized = fullPath.TrimEndDirectorySeparators();
-            System.Diagnostics.Trace.Assert(normalized != string.Empty);
+            if(normalized == string.Empty)
+                throw new InvalidOperationException("[Assert] Normalized Windows path is empty");
             return normalized;
         }
 
