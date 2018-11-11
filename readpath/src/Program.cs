@@ -1,4 +1,5 @@
 using System;
+using CommandLine;
 
 namespace ReadPath
 {
@@ -6,7 +7,13 @@ namespace ReadPath
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var parser = Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(opt => {
+                    if(!opt.Anything)
+                        opt.Everything = true;
+
+                    Console.WriteLine(opt);
+                });
         }
     }
 }
