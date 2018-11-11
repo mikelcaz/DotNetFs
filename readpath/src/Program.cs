@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace readpath
+namespace ReadPath
 {
     class Program
     {
