@@ -41,7 +41,7 @@ namespace DotNetFs
             }
 
             // It could be a file or directory path,
-            // Path.GetDirectoryName assumes it's a file one.
+            // Path.GetDirectoryName assumes it belongs to a file.
             return candidate;
         }
 

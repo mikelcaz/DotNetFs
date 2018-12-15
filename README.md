@@ -31,17 +31,19 @@ The former point is a minor issue, but working in cross-platform projects is wei
 However, the latter soon became a problem. For example, let's say I want to use [`Path.GetDirectoryName(string path)`](https://docs.microsoft.com/en-us/dotnet/api/system.io.path.getdirectoryname?view=netframework-4.7.2). But that method:
 
 - Returns `null` if the path is a root directory (why?).
-- Returns `string.Empty` if the path has not contains directory information.
-- Returns the whole path (w/o the directory separator) if the path **seems** a directory.
-- Returns the parent directory path otherwise.
+- Returns `string.Empty` if the path does not contain directory information.
+- Returns the same path (w/o the trailing directory separator) if the path must belong to a directory (**unreliable**).
+- Returns the parent directory path otherwise (i.e. when it is not sure).
 
+> Sometimes, paths reserved to directories are not acknowledged as such. For example, '.' and '..' aren't.
+>
 > Note how when the method can't say if the path is a directory or a "file" (i.e. a non-directory file), it takes for granted that it must be the second one.
 
 Did you understand a word? What a mess of semantic! You'll be introducing a ton of sutile bugs into your code in no time...
 
-Plus, this method can't achieve its goal. Something similar happens with `Directory.GetParent(string name)`: those methods seems to be in the wrong class.
+Plus, this method can't achieve its goal, as it can't know if a path belongs to a directory or a file in all the cases without checking it against the file system. The opposite problem can be spotted at `Directory.GetParent(string name)`: it shouldn't need to use the file system at all. Those methods seems to be in the wrong class.
 
-At the end, I decide to making a library to hide the ugly boilerplate code that talks to the `System.IO` classes, and provide sane semantics.
+Eventually, I decided to make a library and hide the ugly boilerplate code that talks to the `System.IO` classes, providing sane semantics instead.
 
 ### Copyright and license
 
