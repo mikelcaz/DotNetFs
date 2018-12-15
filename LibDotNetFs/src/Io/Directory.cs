@@ -14,6 +14,10 @@ namespace DotNetFs.Io
             return System.IO.Directory.Exists(path);
         }
 
+        /// <summary>
+        /// If the path belongs to a directory retrieves its DirectoryInfo.
+        /// If it belongs to a file, retrieves the DirectoryInfo of its parent.
+        /// </summary>
         public static DirectoryInfo GetDirectory(string path)
         {
             var directoryInfo = new DirectoryInfo(path);
