@@ -11,6 +11,15 @@ namespace DotNetFs
 {
     public static class Path
     {
+        /// <summary>
+        /// Retrieves a path to the parent directory.
+        /// </summary>
+        /// <param name="path">
+        /// An existing or ficticious path of a file or directory.
+        /// </param>
+        /// <remarks>
+        /// Use it instead of <see cref="System.IO.Path.GetDirectoryName(string)"/>.
+        /// </remarks>
         public static string GetParentName(string path)
         {
             var candidate = OldPath.GetDirectoryName(path);
@@ -41,7 +50,7 @@ namespace DotNetFs
             }
 
             // It could be a file or directory path,
-            // Path.GetDirectoryName assumes it's a file one.
+            // Path.GetDirectoryName assumes it belongs to a file.
             return candidate;
         }
 
@@ -103,6 +112,18 @@ namespace DotNetFs
             return normalized;
         }
 
+        /// <summary>
+        /// Tells if the path must belong to an (existing or ficticious)
+        /// directory, or if it is uncertain.
+        /// </summary>
+        /// <remarks>
+        /// There are paths that can't be used to name anything but directories.
+        ///
+        /// E.g., paths like `.`, `..` and those ended by a directory separator
+        /// must belong to a directory.
+        ///
+        /// This method won't check if the path leads to an actual directory.
+        /// </remarks>
         public static bool MustBelongToADirectory(string path)
         {
             return path == "."
@@ -115,6 +136,7 @@ namespace DotNetFs
                 || path.EndsWith($"{OldPath.AltDirectorySeparatorChar}..");
         }
 
+        /// <summary>The same as <see cref="System.IO.Path.GetFileName(string)"/>.</summary>
         public static string GetFileName(string path)
         {
             return OldPath.GetFileName(path);
